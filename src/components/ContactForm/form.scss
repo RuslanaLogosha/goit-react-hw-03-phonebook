@@ -1,0 +1,35 @@
+@import 'styles/shared.scss';
+
+.form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 500px;
+  height: 200px;
+  border: 1px solid $black;
+}
+
+.label {
+  display: block;
+  text-align: center;
+  font-weight: 700;
+}
+
+.input {
+  display: block;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.button {
+  width: 100px;
+  height: 30px;
+  border: none;
+  border-radius: 10px;
+
+  &:hover,
+  &:focus {
+    background-color: $green;
+  }
+}

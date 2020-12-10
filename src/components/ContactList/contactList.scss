@@ -1,0 +1,23 @@
+@import 'styles/shared.scss';
+
+.list {
+  width: 500px;
+  text-align: center;
+  list-style: none;
+}
+
+.listItem {
+  margin-bottom: 20px;
+}
+
+.listItemText {
+  margin-right: 10px;
+}
+
+.button {
+  margin-left: 20px;
+  &:hover,
+  &:focus {
+    background-color: $red;
+  }
+}
