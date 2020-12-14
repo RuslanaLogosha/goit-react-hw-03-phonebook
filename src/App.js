@@ -20,7 +20,6 @@ class App extends Component {
   }
 
   componentDidMount() {
-    console.log('component did mount');
     const contacts = localStorage.getItem('contacts');
     const parsedContacts = JSON.parse(contacts);
 
@@ -29,35 +28,37 @@ class App extends Component {
     }
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    console.log('component updated');
+  componentDidUpdate(prevState) {
+    const { contacts } = this.state;
 
-    if (this.state.contacts !== prevState.contacts) {
+    if (contacts !== prevState.contacts) {
       console.log('contacts were updated');
-      localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
+      localStorage.setItem('contacts', JSON.stringify(contacts));
     }
   }
 
 
   addContact = (name, number) => {
     const { contacts } = this.state;
+
+    if (contacts.find(contact => contact.name === name)) {
+      alert(`${name} is already in contacts.`)
+      return;
+    }
+
     const newContact = {
       id: shortid.generate(),
       name,
       number,
-    }
-    if (contacts.find(contact => contact.name === newContact.name)) {
-      alert(`${newContact.name} is already in contacts.`)
-      return;
-    }
+    }    
 
     this.setState(({ contacts }) => ({
       contacts: [newContact, ...contacts],
     }));
   };
 
-  changeFilter = e => {
-    this.setState({ filter: e.currentTarget.value });
+  changeFilter = ({target}) => {
+    this.setState({ filter: target.value });
   };
   
   getVisibleContacts = () => {
@@ -70,8 +71,8 @@ class App extends Component {
   };
  
   deleteContact = contactId => {
-    this.setState(prevState => ({
-      contacts: prevState.contacts.filter(contact => contact.id !== contactId)
+    this.setState(({contacts}) => ({
+      contacts:  contacts.filter(contact => contact.id !== contactId)
     }));
   };
   
